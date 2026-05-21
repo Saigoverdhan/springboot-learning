@@ -27,11 +27,7 @@ public class user_input {
         service.delete(age);
     }
 
-    @PatchMapping("/edit/{  }")
-    public String update(){
 
-        return "profile Updated";
-    }
     // GET API
     @GetMapping("/age/{age}")
     public List<register> findbyage(@PathVariable int age) {
