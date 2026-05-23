@@ -1,4 +1,15 @@
 package com.sai.rise.model;
 
-public class Id_password {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+public class login {
+    @Id
+    private String username;
+    private String password;
 }
