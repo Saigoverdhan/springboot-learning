@@ -2,7 +2,9 @@ package com.sai.rise.controller;
 
 import com.sai.rise.model.login;
 import com.sai.rise.service.login_service;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +22,12 @@ public class login_controller {
             return "login succesfull";
         }
         return "Login Failed";
+    }
+
+    @GetMapping("/s")
+    public CsrfToken sai(HttpServletRequest request){
+        CsrfToken s= (CsrfToken) request.getAttribute("_csrf");
+        return s;
     }
 
     @PostMapping("/register")
