@@ -6,6 +6,7 @@ import com.sai.rise.model.login;
 import com.sai.rise.repository.login_repo;
 import com.sai.rise.repository.login_repo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,19 +21,23 @@ public class login_service {
     }
 
     //to verify that user name , password are valid
-    public boolean userExist(String username, String password) {
+//    public boolean userExist(String username, String password) {
+//
+//        login user = logrepo.findByUsername(username);
+//
+//        if (user == null) {
+//            return false;
+//        }
+//
+//        return user.getPassword().equals(password);
+//    }
 
-        login user = logrepo.findByUsername(username);
-
-        if (user == null) {
-            return false;
-        }
-
-        return user.getPassword().equals(password);
-    }
-
+    @Autowired
+    PasswordEncoder pe;
     //to register user name & password
     public void add(login user){
+        String s=user.getPassword();
+        user.setPassword(pe.encode(s));
         logrepo.save(user);
     }
 

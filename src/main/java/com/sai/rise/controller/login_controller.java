@@ -15,20 +15,21 @@ public class login_controller {
 
     @Autowired
     login_service ls;
-    @PostMapping("/login/{s}/{p}")
-    public String log(@PathVariable String s,@PathVariable String p) {
+//    @PostMapping("/login/{s}/{p}")
+//    public String log(@PathVariable String s,@PathVariable String p) {
+//
+//        if(ls.userExist(s,p)){
+//            return "login succesfull";
+//        }
+//        return "Login Failed";
+//    }
+    //wrote because not known about springsecurity before
 
-        if(ls.userExist(s,p)){
-            return "login succesfull";
-        }
-        return "Login Failed";
-    }
-
-    @GetMapping("/s")
-    public CsrfToken sai(HttpServletRequest request){
-        CsrfToken s= (CsrfToken) request.getAttribute("_csrf");
-        return s;
-    }
+//    @GetMapping("/s")
+//    public CsrfToken sai(HttpServletRequest request){
+//        CsrfToken s= (CsrfToken) request.getAttribute("_csrf");
+//        return s;
+//    }
 
     @PostMapping("/register")
     public String sign(@RequestBody login user){
