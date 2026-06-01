@@ -2,8 +2,6 @@ package com.sai.rise.service;
 
 import java.util.*;
 import com.sai.rise.model.login;
-import com.sai.rise.model.login;
-import com.sai.rise.repository.login_repo;
 import com.sai.rise.repository.login_repo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,68 +41,27 @@ public class login_service {
         logrepo.save(user);
     }
 
-    //to delete user account
-//    public boolean delete(login u){
-//
-//        login user =
-//                logrepo.findByUsername(u.getUsername());
-//
-//        if(user == null){
-//            return false;
-//        }
-//
-//        if(user.getPassword().equals(u.getPassword())){
-//
-//            logrepo.deleteByUsername(user.getUsername());
-//
-//            return true;
-//        }
-//
-//        return false;
-//    }
     @Transactional
-    public boolean delete(login u){
+    public String delete(String u, String p){
 
-        System.out.println("Input Username: " + u.getUsername());
-        System.out.println("Input Password: " + u.getPassword());
+        login user = logrepo.findByUsername(u);
 
-        login user = logrepo.findByUsername(u.getUsername());
+        System.out.println("Username = [" + u + "]");
+        System.out.println("Password received = [" + p + "]");
+        System.out.println("User found = " + user.getUsername());
 
-        System.out.println("DB User: " + user);
+        boolean matched = pe.matches(p, user.getPassword());
 
-        if(user == null){
-            System.out.println("User not found");
-            return false;
+        System.out.println("Password matched = " + matched);
+
+        if(matched){
+            logrepo.delete(user);
+            return "Account Deleted";
         }
 
-        System.out.println("DB Password: " + user.getPassword());
-        System.out.println("DB Password: " + u.getPassword());
-
-        if(pe.matches(u.getPassword(), user.getPassword())){
-
-            System.out.println("Password matched");
-
-            logrepo.deleteByUsername(user.getUsername());
-
-            return true;
-        }
-
-        System.out.println("Password mismatch");
-
-        return false;
+        return "Account not Deleted";
     }
-//    public boolean delete(login u){
-//        login user = logrepo.findByUsername(u.getUsername());
-//
-//        if (user.getUsername() == null) {
-//            return false;
-//        }else if(user.getPassword().equals(u.getPassword())){
-//            logrepo.deleteById(u.getUsername());
-//            return true;
-//        }
-//
-//        return false;
-//    }
+
 
     public List<login> u(){
         return logrepo.findAll();
@@ -112,24 +69,3 @@ public class login_service {
 }
 
 
-//package com.sai.rise.service;
-//import com.sai.rise.model.login;
-//import com.sai.rise.repository.login_repo;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class login_service {
-//
-//    @Autowired
-//    login_repo logrepo;
-//    public boolean user_exist(String s,String p) {
-//     login sai=logrepo.findByUsername(s);
-//        if(sai.getPassword() == p){
-//            return true;
-//        }
-//
-//        return false;
-//    }
-//
-//}

@@ -2,10 +2,10 @@ package com.sai.rise.controller;
 
 import com.sai.rise.model.login;
 import com.sai.rise.service.login_service;
-import jakarta.servlet.http.HttpServletRequest;
+//import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -15,21 +15,7 @@ public class login_controller {
 
     @Autowired
     login_service ls;
-//    @PostMapping("/login/{s}/{p}")
-//    public String log(@PathVariable String s,@PathVariable String p) {
-//
-//        if(ls.userExist(s,p)){
-//            return "login succesfull";
-//        }
-//        return "Login Failed";
-//    }
-    //wrote because not known about springsecurity before
 
-//    @GetMapping("/s")
-//    public CsrfToken sai(HttpServletRequest request){
-//        CsrfToken s= (CsrfToken) request.getAttribute("_csrf");
-//        return s;
-//    }
 
     @PostMapping("/register")
     public String sign(@RequestBody login user){
@@ -44,16 +30,23 @@ public class login_controller {
         return "signing succesfull";
     }
 
-    @DeleteMapping("/deleteAccount")
-    public String del(@RequestBody login u){
-        if(ls.delete(u)){
-            return "account deleted";
+
+
+
+    @DeleteMapping("/deleteAccount/{s}")
+    public String deleteAccount(@PathVariable String s,
+                                Authentication authentication) {
+         //System.out.println("auth"+authentication.getName());
+        if(authentication == null){
+            return "AUTH NULL";
         }
-        return "Account Not Deleted";
+
+        return ls.delete(authentication.getName(), s);
     }
 
     @GetMapping("/users")
     public List<login> users(){
+        System.out.println("hitting url");
         return ls.u();
     }
 }
