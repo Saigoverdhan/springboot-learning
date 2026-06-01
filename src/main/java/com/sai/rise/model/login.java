@@ -12,4 +12,5 @@ public class login {
     @Id
     private String username;
     private String password;
+    private String role;
 }

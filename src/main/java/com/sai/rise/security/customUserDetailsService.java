@@ -25,6 +25,16 @@ public class customUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
+
+//        return new User(
+//                user.getUsername(),
+//                user.getPassword(),
+//                List.of(
+//                        new SimpleGrantedAuthority(
+//                                "ROLE_" + user.getRole()
+//                        )
+//                )
+//        );
         return new User(
                 user.getUsername(),
                 user.getPassword(),
@@ -32,3 +42,4 @@ public class customUserDetailsService implements UserDetailsService {
         );
     }
 }
+

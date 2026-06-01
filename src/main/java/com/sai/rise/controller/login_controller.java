@@ -39,6 +39,7 @@ public class login_controller {
         if(ls.usernameExist(user.getUsername())) {
             return "use another username";
         }
+
         ls.add(user);
         return "signing succesfull";
     }

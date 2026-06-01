@@ -5,6 +5,7 @@ import com.sai.rise.model.login;
 import com.sai.rise.model.login;
 import com.sai.rise.repository.login_repo;
 import com.sai.rise.repository.login_repo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,22 +39,72 @@ public class login_service {
     public void add(login user){
         String s=user.getPassword();
         user.setPassword(pe.encode(s));
+        user.setRole("user");
         logrepo.save(user);
     }
 
     //to delete user account
+//    public boolean delete(login u){
+//
+//        login user =
+//                logrepo.findByUsername(u.getUsername());
+//
+//        if(user == null){
+//            return false;
+//        }
+//
+//        if(user.getPassword().equals(u.getPassword())){
+//
+//            logrepo.deleteByUsername(user.getUsername());
+//
+//            return true;
+//        }
+//
+//        return false;
+//    }
+    @Transactional
     public boolean delete(login u){
+
+        System.out.println("Input Username: " + u.getUsername());
+        System.out.println("Input Password: " + u.getPassword());
+
         login user = logrepo.findByUsername(u.getUsername());
 
-        if (user.getUsername() == null) {
+        System.out.println("DB User: " + user);
+
+        if(user == null){
+            System.out.println("User not found");
             return false;
-        }else if(user.getPassword().equals(u.getPassword())){
-            logrepo.deleteById(u.getUsername());
+        }
+
+        System.out.println("DB Password: " + user.getPassword());
+        System.out.println("DB Password: " + u.getPassword());
+
+        if(pe.matches(u.getPassword(), user.getPassword())){
+
+            System.out.println("Password matched");
+
+            logrepo.deleteByUsername(user.getUsername());
+
             return true;
         }
 
+        System.out.println("Password mismatch");
+
         return false;
     }
+//    public boolean delete(login u){
+//        login user = logrepo.findByUsername(u.getUsername());
+//
+//        if (user.getUsername() == null) {
+//            return false;
+//        }else if(user.getPassword().equals(u.getPassword())){
+//            logrepo.deleteById(u.getUsername());
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
     public List<login> u(){
         return logrepo.findAll();

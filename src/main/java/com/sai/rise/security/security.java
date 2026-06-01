@@ -26,7 +26,9 @@ public class security {
                         .anyRequest()
                         .authenticated()
                 )
-                //hs.formLogin(Customizer.withDefaults());
+
+                //.formLogin(Customizer.withDefaults())
+
                 .httpBasic(Customizer.withDefaults())
 
                 .build();
