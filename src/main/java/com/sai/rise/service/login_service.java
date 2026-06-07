@@ -19,17 +19,7 @@ public class login_service {
         return logrepo.existsByUsername(s);
     }
 
-    //to verify that user name , password are valid
-//    public boolean userExist(String username, String password) {
-//
-//        login user = logrepo.findByUsername(username);
-//
-//        if (user == null) {
-//            return false;
-//        }
-//
-//        return user.getPassword().equals(password);
-//    }
+
 
     @Autowired
     PasswordEncoder pe;
@@ -46,8 +36,6 @@ public class login_service {
 
         login user = logrepo.findByUsername(u);
 
-        System.out.println("Username = [" + u + "]");
-        System.out.println("Password received = [" + p + "]");
         System.out.println("User found = " + user.getUsername());
 
         boolean matched = pe.matches(p, user.getPassword());
@@ -58,6 +46,7 @@ public class login_service {
             logrepo.delete(user);
             return "Account Deleted";
         }
+
 
         return "Account not Deleted";
     }

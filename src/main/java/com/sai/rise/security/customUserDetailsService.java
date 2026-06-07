@@ -15,6 +15,7 @@ public class customUserDetailsService implements UserDetailsService {
     @Autowired
     login_repo repo;
 
+
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
@@ -24,8 +25,6 @@ public class customUserDetailsService implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("User not found");
         }
-
-
 //        return new User(
 //                user.getUsername(),
 //                user.getPassword(),
