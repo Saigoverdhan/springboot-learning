@@ -27,9 +27,9 @@ public class security {
                         .anyRequest()
                         .authenticated()
                 )
-               // .oauth2Client(Customizer.withDefaults())
+               // .oauth2Client(Customizer.withDefaults()) wrong statement
                 .oauth2Login(Customizer.withDefaults())
-                //.formLogin(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
 
                 //.httpBasic(Customizer.withDefaults())
 //                .sessionManagement(session ->
