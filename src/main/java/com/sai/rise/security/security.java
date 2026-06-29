@@ -21,7 +21,7 @@ public class security {
 
                 .authorizeHttpRequests(request -> request
 
-                        .requestMatchers("/home/register")
+                        .requestMatchers("/home/LuckyNum")
                         .permitAll()
 
                         .anyRequest()
