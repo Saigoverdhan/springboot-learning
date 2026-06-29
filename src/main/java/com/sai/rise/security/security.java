@@ -24,6 +24,9 @@ public class security {
                         .requestMatchers("/home/LuckyNum")
                         .permitAll()
 
+                        .requestMatchers("/home/register")
+                        .permitAll()
+
                         .anyRequest()
                         .authenticated()
                 )
